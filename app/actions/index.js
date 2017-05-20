@@ -1,8 +1,8 @@
 import * as types from './types';
 
-export function filterTable(filter) {
+export function addForm(form){
     return {
-        type: types.FILTER,
-        filter
+        type: types.addData,
+        form
     };
 }
