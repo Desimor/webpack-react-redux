@@ -1,6 +1,6 @@
 import * as types from './types';
 
-export function addForm(form){
+export function addPerson(form){
     return {
         type: types.addData,
         form

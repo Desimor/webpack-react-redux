@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { filterTable } from '../actions';
+import { addPerson } from '../actions';
 import ProductTable from '../components/ProductTable';
 import { filterableTable } from '../styles/filterableTable.scss';
 
@@ -19,10 +19,47 @@ import { filterableTable } from '../styles/filterableTable.scss';
     );
 };*/
 
+class NewPersonForm extends React.Component {
+    constructor(props) {
+       super(props);
+       this.state = {name: "", bloodType: ""};
+    }
+
+    onNameChanged(e) {
+        this.setState({
+            name: e.target.value
+        });
+    }
+
+    onBloodChanged(e) {
+        this.setState({
+            bloodType: e.target.value
+        });
+    }
+
+    render () {
+        return (
+            <div>
+                <input type="text" placeholder="Name"
+                    value={ this.state.name }
+                    onChange={(e) => this.onNameChanged(e)} />
+                <input type="text" placeholder="Blood Type"
+                    value={ this.state.bloodType }
+                    onChange={(e) => this.onBloodChanged(e)} />
+                <button type="submit" onClick={() => this.props.onSubmitForm(this.state)}></button>
+            </div>
+        )
+    }
+}
+
 // FilterableTable.propTypes = {
 //     filter: PropTypes.string,
 //     onFilter: PropTypes.func
 // };
+
+NewPersonForm.propTypes = {
+    onSubmitForm: PropTypes.func
+};
 
 const mapStateToProps = (state) => {
     return {
@@ -32,11 +69,11 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onSubmitForm: formData => dispatch(addForm(formData))
+        onSubmitForm: formData => dispatch(addPerson(formData))
     };
 };
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(FormData);
+)(NewPersonForm);
