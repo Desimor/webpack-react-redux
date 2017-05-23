@@ -46,7 +46,7 @@ class NewPersonForm extends React.Component {
                 <input type="text" placeholder="Blood Type"
                     value={ this.state.bloodType }
                     onChange={(e) => this.onBloodChanged(e)} />
-                <button type="submit" onClick={() => this.props.onSubmitForm(this.state)}>Submit Ya Fool</button>
+                <button type="submit" onClick={() => this.props.onSubmitForm(this.state)}>Submit</button>
             </div>
         );
     }

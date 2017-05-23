@@ -4,7 +4,7 @@ import { footer } from '../styles/footer.scss';
 
 const App = ({ children }) =>
     <div>
-        <h1>Filter table</h1>
+        <h1>Blood Types</h1>
         { children }
         <footer className={footer}>
             <Link to="/">Dashboard</Link>

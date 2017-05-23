@@ -1,0 +1,22 @@
+html, body {
+    width: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    color: #171717;
+    font-size: 14px;
+}
+
+* {
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+.topbar {
+    height: 70px;
+    background: blue;
+    width:500px;
+}
