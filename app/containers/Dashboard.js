@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { Pie } from 'react-chartjs';
+import { Doughnut } from 'react-chartjs';
 // import { addPerson } from '../actions';
 // import ProductTable from '../components/ProductTable';
 // import { filterableTable } from '../styles/filterableTable.scss';
@@ -21,44 +21,21 @@ import { Pie } from 'react-chartjs';
 };*/
 
 class Dashboard extends React.Component {
-    constructor(props) {
-        super(props);
-        this.chartSeries = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'].map((bloodType) => {
+    render() {
+        const bloodTypes = {};
+        this.props.people.forEach((person) => {
+            bloodTypes[person.bloodType] = (bloodTypes[person.bloodType] || 0) + 1;
+        });
+        const data = Object.keys(bloodTypes).map((bloodType) => {
             return {
-                field: bloodType,
-                name: bloodType
+                value: bloodTypes[bloodType],
+                label: bloodType
             };
         });
-    }
-
-    render() {
-        const data = {
-            labels: [
-                'Green',
-                'Blue',
-                'Orange'
-            ],
-            datasets: [
-                {
-                    data: [300, 50, 100],
-                    backgroundColor: [
-                        '#FF6384',
-                        '#36A2EB',
-                        '#FFCE56'
-                    ],
-                    hoverBackgroundColor: [
-                        '#FF6384',
-                        '#36A2EB',
-                        '#FFCE56'
-                    ]
-                }]
-        };
-        const chartOptions = {
-            responsive: true
-        };
+        const chartOptions = {};
         return (
             <div>
-                <Pie data={data} options={chartOptions} width="700" height="400"/>
+                <Doughnut data={data} options={chartOptions} width="700" height="400"/>
             </div>
         );
     }
