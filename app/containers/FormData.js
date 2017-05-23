@@ -61,19 +61,13 @@ NewPersonForm.propTypes = {
     onSubmitForm: PropTypes.func
 };
 
-const mapStateToProps = (state) => {
-    return {
-        people: state.people
-    };
-};
-
 const mapDispatchToProps = (dispatch) => {
     return {
-        onSubmitForm: formData => dispatch(addPerson(formData))
+        onSubmitForm: (formData) => dispatch(addPerson(formData))
     };
 };
 
 export default connect(
-    mapStateToProps,
+    null,
     mapDispatchToProps
 )(NewPersonForm);

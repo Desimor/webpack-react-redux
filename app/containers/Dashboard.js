@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { addPerson } from '../actions';
+import { PieChart } from 'react-d3-basic';
+// import { addPerson } from '../actions';
 // import ProductTable from '../components/ProductTable';
 // import { filterableTable } from '../styles/filterableTable.scss';
 
@@ -19,35 +20,44 @@ import { addPerson } from '../actions';
     );
 };*/
 
-class NewPersonForm extends React.Component {
+class Dashboard extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {name: '', bloodType: ''};
-    }
-
-    onNameChanged(e) {
-        this.setState({
-            name: e.target.value
+        this.width = 700;
+        this.height = 400;
+        this.chartSeries = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'].map((bloodType) => {
+            return {
+                field: bloodType,
+                name: bloodType
+            };
         });
     }
 
-    onBloodChanged(e) {
-        this.setState({
-            bloodType: e.target.value
-        });
+    name(d) {
+        console.log(d);
+        console.log(this.props.people);
+        return d.bloodType;
+    }
+
+    value(d) {
+        console.log(d);
+        console.log(this.props.people);
+        return d.bloodType;
     }
 
     render() {
+        console.log(this.chartSeries);
         return (
             <div>
-                <input type="text" placeholder="Name"
-                    value={ this.state.name }
-                    onChange={(e) => this.onNameChanged(e)} />
-                <input type="text" placeholder="Blood Type"
-                    value={ this.state.bloodType }
-                    onChange={(e) => this.onBloodChanged(e)} />
-                <button type="submit" onClick={() => this.props.onSubmitForm(this.state)}>Submit Ya Fool</button>
+                <PieChart
+                    data= {this.props.people || []}
+                    width= {this.width}
+                    height= {this.height}
+                    chartSeries= {this.chartSeries}
+                    value = {() => this.value()}
+                    />
             </div>
+                    // name = {() => this.name()}
         );
     }
 }
@@ -57,8 +67,8 @@ class NewPersonForm extends React.Component {
 //     onFilter: PropTypes.func
 // };
 
-NewPersonForm.propTypes = {
-    onSubmitForm: PropTypes.func
+Dashboard.propTypes = {
+    people: PropTypes.array
 };
 
 const mapStateToProps = (state) => {
@@ -67,13 +77,6 @@ const mapStateToProps = (state) => {
     };
 };
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        onSubmitForm: formData => dispatch(addPerson(formData))
-    };
-};
-
 export default connect(
     mapStateToProps,
-    mapDispatchToProps
-)(NewPersonForm);
+)(Dashboard);
