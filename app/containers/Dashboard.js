@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { PieChart } from 'react-d3-basic';
+import { Pie } from 'react-chartjs';
 // import { addPerson } from '../actions';
 // import ProductTable from '../components/ProductTable';
 // import { filterableTable } from '../styles/filterableTable.scss';
@@ -23,8 +23,6 @@ import { PieChart } from 'react-d3-basic';
 class Dashboard extends React.Component {
     constructor(props) {
         super(props);
-        this.width = 700;
-        this.height = 400;
         this.chartSeries = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'].map((bloodType) => {
             return {
                 field: bloodType,
@@ -33,31 +31,35 @@ class Dashboard extends React.Component {
         });
     }
 
-    name(d) {
-        console.log(d);
-        console.log(this.props.people);
-        return d.bloodType;
-    }
-
-    value(d) {
-        console.log(d);
-        console.log(this.props.people);
-        return d.bloodType;
-    }
-
     render() {
-        console.log(this.chartSeries);
+        const data = {
+            labels: [
+                'Green',
+                'Blue',
+                'Orange'
+            ],
+            datasets: [
+                {
+                    data: [300, 50, 100],
+                    backgroundColor: [
+                        '#FF6384',
+                        '#36A2EB',
+                        '#FFCE56'
+                    ],
+                    hoverBackgroundColor: [
+                        '#FF6384',
+                        '#36A2EB',
+                        '#FFCE56'
+                    ]
+                }]
+        };
+        const chartOptions = {
+            responsive: true
+        };
         return (
             <div>
-                <PieChart
-                    data= {this.props.people || []}
-                    width= {this.width}
-                    height= {this.height}
-                    chartSeries= {this.chartSeries}
-                    value = {() => this.value()}
-                    />
+                <Pie data={data} options={chartOptions} width="700" height="400"/>
             </div>
-                    // name = {() => this.name()}
         );
     }
 }
